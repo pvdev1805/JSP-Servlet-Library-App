@@ -40,7 +40,7 @@ public class BookDAO {
 		return books;
 	}
 	
-	public Book getBookById(int id) throws SQLException {
+	public Book getBookById(int id) {
 		Book book = null;
 		String sqlQuery = "SELECT id, category_id, title, author, isbn, description, total_copies, available_copies FROM books WHERE id = ?";
 		
@@ -59,7 +59,7 @@ public class BookDAO {
 		return book;
 	}
 	
-	public boolean addBook(Book book) throws SQLException {
+	public boolean addBook(Book book) {
 		String sqlQuery = "INSERT INTO books (category_id, title, author, isbn, description, total_copies, available_copies) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 		boolean rowInserted = false;
@@ -81,7 +81,7 @@ public class BookDAO {
 		return rowInserted;
 	}
 	
-	public boolean updateBookDetails(Book book) throws SQLException {
+	public boolean updateBookDetails(Book book) {
 		String sqlQuery = "UPDATE books SET category_id = ?, title = ?, author = ?, description = ?, isbn = ? " +
                 "WHERE id = ?";
 		boolean rowUpdated = false;
@@ -102,7 +102,7 @@ public class BookDAO {
 		return rowUpdated;
 	}
 	
-	public boolean deleteBook(int id) throws SQLException {
+	public boolean deleteBook(int id) {
 		String sqlQuery = "DELETE FROM books WHERE id = ?";
 		boolean rowDeleted = false;
 		

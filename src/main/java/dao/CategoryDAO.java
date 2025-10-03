@@ -9,7 +9,7 @@ import model.Category;
 import util.DBConnectionManager;
 
 public class CategoryDAO {
-	public Category getCategoryById(int id) throws SQLException {
+	public Category getCategoryById(int id) {
 		Category category = null;
 		String sqlQuery = "SELECT id, name FROM categories WHERE id = ?";
 		
@@ -32,7 +32,7 @@ public class CategoryDAO {
 		return category;
 	}
 	
-	public String getCategoryNameById(int id) throws SQLException {
+	public String getCategoryNameById(int id) {
 		String name = "N/A"; // Default name if category is not found
 		String sqlQuery = "SELECT name FROM categories WHERE id = ?";
 		
