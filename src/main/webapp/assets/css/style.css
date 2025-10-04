@@ -1,0 +1,197 @@
+table, th, td {
+  border: 1px solid;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+}
+
+.btn {
+  align-items: center;
+  appearance: none;
+  background-color: #3EB2FD;
+  background-image: linear-gradient(1deg, #4F58FD, #149BF3 99%);
+  background-size: calc(100% + 20px) calc(100% + 20px);
+  border-radius: 100px;
+  border-width: 0;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: CircularStd,sans-serif;
+  font-size: 1rem;
+  height: auto;
+  justify-content: center;
+  line-height: 1.5;
+  padding: 6px 20px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color .2s,background-position .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.btn:active,
+.btn:focus {
+  outline: none;
+}
+
+.btn:hover {
+  background-position: -20px -20px;
+}
+
+.btn:focus:not(:active) {
+  box-shadow: rgba(40, 170, 255, 0.25) 0 0 0 .125em;
+}
+
+.btn-edit {
+	background-image: linear-gradient(to right, #4caf50, #81c784);
+}
+
+.btn-edit:hover {
+  background-image: linear-gradient(to right, #81c784, #4caf50);
+}
+
+.btn-delete {
+	background-image: linear-gradient(to right, #e53935, #ef5350);
+}
+
+.btn-delete:hover {
+  background-image: linear-gradient(to right, #ef5350, #e53935);
+}
+
+.btn-login {
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  background-image: linear-gradient(
+    to right,
+    #ff6b6b 0%,
+    #ee5253 51%,
+    #ff6b6b 100%
+  );
+  background-size: 200% auto;
+  transition: all 0.4s ease-in-out;
+}
+
+.btn-login:hover {
+  background-position: right center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-login:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-logout {
+  background-color: #e74c3c;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
+  
+  user-select: none;
+  
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-logout:hover {
+  background-color: #c0392b;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-logout:active {
+	transform: scale(0.98);
+	box-shadow: none;
+}
+
+.mb-2 {
+  margin-bottom: 8px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  row-gap: 4px;
+}
+
+.label {
+  display: inline-block;
+  min-width: 100px;
+  margin-right: 8px;
+}
+
+.label::after {
+  content: ":";
+  margin-left: 4px;
+}
+
+.form {
+  max-width: 400px;
+}
+
+.form-group {
+  margin-bottom: 8px;
+}
+
+.form-group label {
+  display: inline-block;
+  min-width: 120px;
+}
+
+.error-container {
+  border: 1px solid #ffdddd;
+  background-color: #fff0f0;
+  padding: 20px;
+  margin-top: 30px;
+  border-radius: 5px;
+  color: #cc0000;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+}
+
+.error {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  color: red;
+  font-weight: bold;
+}
+
+.success-message {
+  color: green;
+  font-weight: bold;
+}
