@@ -47,4 +47,8 @@ public class BookService {
 		
 		return bookDAO.addBook(newBook);
 	}
+	
+	public boolean deleteBook(int id) {
+		return bookDAO.deleteBook(id);
+	}
 }

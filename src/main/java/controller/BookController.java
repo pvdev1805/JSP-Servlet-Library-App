@@ -19,6 +19,7 @@ public class BookController extends HttpServlet {
 	private final BookService bookService = new BookService();
 	private final String listBooksPath = "/";
 	private final String addBookPath = "/new";
+	private final String deleteBookPath = "/delete";
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,6 +29,8 @@ public class BookController extends HttpServlet {
 			handleListBooks(request, response);
 		} else if(addBookPath.equals(path)) {
 			showAddBookForm(request, response);
+		} else if(deleteBookPath.equals(path)) {
+			handleDeleteBook(request, response);
 		} else {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		}
@@ -52,6 +55,24 @@ public class BookController extends HttpServlet {
 	private void showAddBookForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/books/book-form.jsp");
 		dispatcher.forward(request, response);
+	}
+	
+	private void handleDeleteBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			int bookId = Integer.parseInt(request.getParameter("id"));
+			
+			boolean isSuccess = bookService.deleteBook(bookId);
+			
+			if(isSuccess) {
+				response.sendRedirect(request.getContextPath() + listBooksPath);
+			} else {
+				request.getSession().setAttribute("error", "Error: Cannot delete book. It may be currently loaned.");
+	            response.sendRedirect(request.getContextPath() + listBooksPath);
+			}
+			
+		} catch (NumberFormatException e) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Book ID format.");
+		}
 	}
 	
 	@Override
