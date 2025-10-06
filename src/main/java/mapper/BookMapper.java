@@ -5,6 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import dto.request.CreateBookRequest;
+import dto.request.UpdateBookRequest;
 import dto.response.BookDetailsResponse;
 import model.Book;
 
@@ -21,4 +22,7 @@ public interface BookMapper {
 	@Mapping(target = "id", ignore = true) // id will be created by DB
 	@Mapping(target = "availableCopies", ignore = true) // logic for availableCopies will be handled in Service
 	Book toBook(CreateBookRequest request);
+	
+	@Mapping(target = "availableCopies", ignore = true)
+	Book toBook(UpdateBookRequest request);
 }

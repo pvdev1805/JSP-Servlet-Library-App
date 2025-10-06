@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import dto.request.CreateBookRequest;
+import dto.request.UpdateBookRequest;
 import dto.response.BookDetailsResponse;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -19,6 +20,7 @@ public class BookController extends HttpServlet {
 	private final BookService bookService = new BookService();
 	private final String listBooksPath = "/";
 	private final String addBookPath = "/new";
+	private final String editBookPath = "/edit";
 	private final String deleteBookPath = "/delete";
 	
 	@Override
@@ -29,6 +31,8 @@ public class BookController extends HttpServlet {
 			handleListBooks(request, response);
 		} else if(addBookPath.equals(path)) {
 			showAddBookForm(request, response);
+		} else if(editBookPath.equals(path)) {
+			showEditBookForm(request, response);
 		} else if(deleteBookPath.equals(path)) {
 			handleDeleteBook(request, response);
 		} else {
@@ -57,6 +61,26 @@ public class BookController extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 	
+	private void showEditBookForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			int bookId = Integer.parseInt(request.getParameter("id"));
+			
+			BookDetailsResponse bookDetailsResponse = bookService.getBookDetailsById(bookId);
+			
+			if(bookDetailsResponse == null) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "Error: Book Not Found.");
+				return;
+			}
+			
+			request.setAttribute("book", bookDetailsResponse);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/books/book-form.jsp");
+			dispatcher.forward(request, response);
+		} catch (NumberFormatException | NullPointerException e) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error: Invalid Book ID");
+		}
+	}
+	
 	private void handleDeleteBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			int bookId = Integer.parseInt(request.getParameter("id"));
@@ -81,6 +105,8 @@ public class BookController extends HttpServlet {
 		
 		if(addBookPath.equals(path)) {
 			handleCreateBook(request, response);
+		} else if(editBookPath.equals(path)) {
+			handleUpdateBook(request, response);
 		} else {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		}
@@ -125,6 +151,40 @@ public class BookController extends HttpServlet {
 			System.err.println("Error: Error processing handleCreateBook: " + e.getMessage());
 			request.setAttribute("error", "Error: An unexpected error occurred.");
 			showAddBookForm(request, response);
+		}
+	}
+	
+	private void handleUpdateBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int bookId = Integer.parseInt(request.getParameter("id"));
+		String title = request.getParameter("title");
+		String author = request.getParameter("author");
+		String isbn = request.getParameter("isbn");
+		String description = request.getParameter("description");
+		
+		try {
+			int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+			int totalCopies = Integer.parseInt(request.getParameter("totalCopies"));
+			
+			UpdateBookRequest updateRequest = UpdateBookRequest.builder()
+					.id(bookId)
+					.title(title)
+					.author(author)
+					.isbn(isbn)
+					.description(description)
+					.categoryId(categoryId)
+					.totalCopies(totalCopies)
+					.build();
+			
+			boolean isSuccess = bookService.updateBook(updateRequest);
+			
+			if(isSuccess) {
+				response.sendRedirect(request.getContextPath() + listBooksPath);
+			} else {
+				request.setAttribute("error", "Error: Failed to update book");
+				showEditBookForm(request, response);
+			}
+		} catch (NumberFormatException e) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error: Invalid numerical input for update.");
 		}
 	}
 }

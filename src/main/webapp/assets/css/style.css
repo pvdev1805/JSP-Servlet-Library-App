@@ -170,6 +170,14 @@ th, td {
   min-width: 120px;
 }
 
+.label {
+  margin-bottom: 8px;
+}
+
+.input-field {
+  margin-bottom: 16px;
+}
+
 .error-container {
   border: 1px solid #ffdddd;
   background-color: #fff0f0;
