@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import dao.BookDAO;
 import dao.CategoryDAO;
 import dto.request.CreateBookRequest;
+import dto.request.UpdateBookRequest;
 import dto.response.BookDetailsResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -40,11 +41,35 @@ public class BookService {
 		return responses;
 	}
 	
+	public BookDetailsResponse getBookDetailsById(int id) {
+		Book book = bookDAO.getBookById(id);
+		if(book == null) return null;
+		
+		BookDetailsResponse response = bookMapper.toBookDetailsResponse(book);
+		int categoryId = book.getCategoryId();
+		String categoryName = categoryDAO.getCategoryNameById(categoryId);
+		
+		response.setCategoryName(categoryName);
+		response.setAvailable(book.getAvailableCopies() > 0);
+		
+		return response;
+	}
+	
 	public boolean createNewBook(CreateBookRequest request) {
 		Book newBook = bookMapper.toBook(request);
 		
 		newBook.setAvailableCopies(newBook.getTotalCopies());
 		
 		return bookDAO.addBook(newBook);
+	}
+	
+	public boolean updateBook(UpdateBookRequest request) {
+		Book bookToUpdate = bookMapper.toBook(request);
+		
+		return bookDAO.updateBookDetails(bookToUpdate);
+	}
+	
+	public boolean deleteBook(int id) {
+		return bookDAO.deleteBook(id);
 	}
 }
