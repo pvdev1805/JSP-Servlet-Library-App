@@ -49,9 +49,11 @@ INSERT INTO loans (book_id, student_id, loan_date, due_date, return_date) VALUES
 (4, 1, DATE_SUB(CURDATE(), INTERVAL 20 DAY), DATE_SUB(CURDATE(), INTERVAL 10 DAY), NULL);
 
 -- 5. Insert data into table users
+-- student --> password: pass123
+-- admin --> password: adminpass
 INSERT INTO users (username, hashed_password, role) VALUES
-('ST001', 'pass123', 'STUDENT'),
-('ST002', 'pass123', 'STUDENT'),
-('ST003', 'pass123', 'STUDENT'),
-('ST004', 'pass123', 'STUDENT'),
-('ADMIN', 'adminpass', 'ADMIN');
+('ST001', '$2a$12$Rux0zHk/kc1nIkOUKGUq/.uBEWGaj/f9TXZBYSYPz.r7OHEeSQIlS', 'STUDENT'),
+('ST002', '$2a$12$Rux0zHk/kc1nIkOUKGUq/.uBEWGaj/f9TXZBYSYPz.r7OHEeSQIlS', 'STUDENT'),
+('ST003', '$2a$12$Rux0zHk/kc1nIkOUKGUq/.uBEWGaj/f9TXZBYSYPz.r7OHEeSQIlS', 'STUDENT'),
+('ST004', '$2a$12$Rux0zHk/kc1nIkOUKGUq/.uBEWGaj/f9TXZBYSYPz.r7OHEeSQIlS', 'STUDENT'),
+('ADMIN', '$2a$12$jDtV6vJtP1t9mMGZMgnpjOZWJLSyhFkzm07jhB3tYkCtBrFMd15U.', 'ADMIN');
