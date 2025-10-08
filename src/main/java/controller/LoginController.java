@@ -6,6 +6,7 @@ import dto.request.LoginRequest;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -18,7 +19,8 @@ import service.StudentService;
 
 @WebServlet(urlPatterns = "/login")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class LoginController {
+public class LoginController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 	AuthService authService = new AuthService();
 	StudentService studentService = new StudentService();
 	static String DEFAULT_REDIRECT = "/books";
@@ -30,21 +32,7 @@ public class LoginController {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		
-		LoginRequest loginRequest = LoginRequest.builder()
-				.username(username)
-				.password(password)
-				.build();
-		
-		User user = authService.authenticate(loginRequest);
-		
-		if(user != null) {
-			handleSuccessfulLogin(request, response, user);
-		} else {
-			handleFailedLogin(request, response, username);
-		}
+		handleLoginRequest(request, response);
 	}
 	
 	private void showLoginPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -84,5 +72,23 @@ public class LoginController {
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(LOGIN_JSP);
 		dispatcher.forward(request, response);
+	}
+	
+	private void handleLoginRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+				
+		LoginRequest loginRequest = LoginRequest.builder()
+				.username(username)
+				.password(password)
+				.build();
+		
+		User user = authService.authenticate(loginRequest);
+		
+		if(user != null) {
+			handleSuccessfulLogin(request, response, user);
+		} else {
+			handleFailedLogin(request, response, username);
+		}
 	}
 }

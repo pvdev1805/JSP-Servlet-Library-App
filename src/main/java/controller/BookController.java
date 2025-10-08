@@ -27,7 +27,7 @@ public class BookController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = request.getPathInfo();
 		
-		if(listBooksPath.equals(path)) {
+		if(path == null || listBooksPath.equals(path)) {
 			handleListBooks(request, response);
 		} else if(addBookPath.equals(path)) {
 			showAddBookForm(request, response);
