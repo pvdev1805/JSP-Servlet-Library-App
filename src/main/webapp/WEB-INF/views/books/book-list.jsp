@@ -11,7 +11,14 @@
 <body>
 	<h1>Book List - University Library</h1>
 	
-	<a href="<c:url value='/books/new' />" class="btn">+ Add Book</a>
+	<c:if test="${sessionScope.studentProfile != null }">
+		<p>Hello, <c:out value="${sessionScope.studentProfile.name }" /> !</p>
+	</c:if>
+	
+	<div class="actions">
+		<a href="<c:url value='/books/new' />" class="btn mb-2">+ Add Book</a>
+		<a href="<c:url value='/logout' />" class="btn mb-2">Logout</a>
+	</div>
 	
 	<c:choose>
         <c:when test="${not empty requestScope.books}">
@@ -26,6 +33,7 @@
                         <th>Category</th>
                         <th>Total Copies</th>
                         <th>Available Copies</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>

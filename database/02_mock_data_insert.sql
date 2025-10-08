@@ -21,7 +21,7 @@ INSERT INTO books (category_id, title, author, isbn, description, total_copies, 
 (1, 'The Great Gatsby', 'F. Scott Fitzgerald', '9780743273565', 'A classic novel of the Jazz Age.', 4, 2);
 
 -- 3. Insert data into table students
-INSERT INTO students (id, code, name, grade, email) VALUES
+INSERT INTO students (user_id, code, name, grade, email) VALUES
 (1, 'S001', 'Alice Johnson', '10', 'alice.j@uni.edu'),
 (2, 'S002', 'Bob Williams', '11', 'bob.w@uni.edu'),
 (3, 'S003', 'Charlie Brown', '10', 'charlie.b@uni.edu'),
@@ -47,3 +47,13 @@ INSERT INTO loans (book_id, student_id, loan_date, due_date, return_date) VALUES
 -- 4.5: Alice loans Java Programming (ID 4) - Over due date (expired) (Loan ID 5)
 INSERT INTO loans (book_id, student_id, loan_date, due_date, return_date) VALUES
 (4, 1, DATE_SUB(CURDATE(), INTERVAL 20 DAY), DATE_SUB(CURDATE(), INTERVAL 10 DAY), NULL);
+
+-- 5. Insert data into table users
+-- student --> password: pass123
+-- admin --> password: adminpass
+INSERT INTO users (username, hashed_password, role) VALUES
+('ST001', '$2a$12$Rux0zHk/kc1nIkOUKGUq/.uBEWGaj/f9TXZBYSYPz.r7OHEeSQIlS', 'STUDENT'),
+('ST002', '$2a$12$Rux0zHk/kc1nIkOUKGUq/.uBEWGaj/f9TXZBYSYPz.r7OHEeSQIlS', 'STUDENT'),
+('ST003', '$2a$12$Rux0zHk/kc1nIkOUKGUq/.uBEWGaj/f9TXZBYSYPz.r7OHEeSQIlS', 'STUDENT'),
+('ST004', '$2a$12$Rux0zHk/kc1nIkOUKGUq/.uBEWGaj/f9TXZBYSYPz.r7OHEeSQIlS', 'STUDENT'),
+('ADMIN', '$2a$12$jDtV6vJtP1t9mMGZMgnpjOZWJLSyhFkzm07jhB3tYkCtBrFMd15U.', 'ADMIN');
